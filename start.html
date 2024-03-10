@@ -7,6 +7,8 @@
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap">
     <link rel="icon" href="/Materials/favicon.png">
+    <!-- Include Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
 <body class="background">
     <div id="message"></div>
@@ -31,12 +33,17 @@
         <br>
         <br>
         <br>
-        Ready to practice your listening skills? Then click play!
+        Click play to start the music!
     </div>
     <div class="audioPlayer-container">
-        <audio id="audioPlayer" controls autoplay>
+        <audio id="audioPlayer">
             Your browser does not support the audio element.
         </audio>
+        <div id="playPauseButtons">
+            <!-- Use Font Awesome icons for play and pause -->
+            <button id="playButton" onclick="playAudio()"><i class="fas fa-play"></i></button>
+            <button id="pauseButton" onclick="pauseAudio()" style="display:none;"><i class="fas fa-pause"></i></button>
+        </div>
     </div>
     
     <div class="songContainer" id="songContainer"></div>
@@ -48,10 +55,10 @@
             <br>
             <br>
             <button type="button" onclick="checkAnswer()">Submit Answer</button>
+            <button type="button" onclick="location.reload()">Try again!</button>
         </form>
         <p id="answerFeedback"></p>
     </div>
-
     <script src="script.js"></script>
     <script>
         var selectedSong; // Declare selectedSong in the global scope
@@ -100,10 +107,19 @@
             var songName = extractSongName(selectedSong);
 
             var audioPlayer = document.getElementById("audioPlayer");
-            if (!audioPlayer) {
+                if (!audioPlayer) {
                 console.error("Audio player element not found.");
                 return;
             }
+
+            audioPlayer.addEventListener("loadedmetadata", function() {
+                var validStartTime = audioPlayer.duration - 30; // 30 seconds before the end
+                var randomStart = Math.random() * validStartTime;
+                audioPlayer.currentTime = randomStart;
+                setTimeout(function() {
+                    audioPlayer.pause();
+                }, 30000); // 30 seconds
+            });
 
             var encodedFilePath = "Songs/Test_2/" + selectedSong;
 
@@ -130,6 +146,13 @@
                 choicesDiv.appendChild(label);
                 choicesDiv.appendChild(document.createElement("br"));
             });
+
+            // Start the audio at a random moment and stop after 30 seconds
+            var randomStart = Math.random() * audioPlayer.duration;
+            audioPlayer.currentTime = randomStart;
+            setTimeout(function() {
+                audioPlayer.pause();
+            }, 30000); // 30 seconds
         };
 
         function showSong() {

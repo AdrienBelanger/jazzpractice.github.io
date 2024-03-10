@@ -18,5 +18,23 @@ function closeSidebar() {
 }
 
 
+function playAudio() {
+    var audioPlayer = document.getElementById("audioPlayer");
+    var playButton = document.getElementById("playButton");
+    var pauseButton = document.getElementById("pauseButton");
 
+    audioPlayer.play();
+    playButton.style.display = "none";
+    pauseButton.style.display = "inline-block";
+}
+
+function pauseAudio() {
+    var audioPlayer = document.getElementById("audioPlayer");
+    var playButton = document.getElementById("playButton");
+    var pauseButton = document.getElementById("pauseButton");
+
+    audioPlayer.pause();
+    playButton.style.display = "inline-block";
+    pauseButton.style.display = "none";
+}
 
