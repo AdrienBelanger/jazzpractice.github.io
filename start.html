@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Practice - Listening Software</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap">
+    <link rel="icon" href="/Materials/favicon.png">
+</head>
+<body class="background">
+    <div id="message"></div>
+    <div id="header-sidebar-container">
+        <header class="welcome-header">
+            <div class="header-content">
+                <h1 class="h1-title">Practice</h1>
+                <button class="menu-button" onclick="toggleSidebar()">&#9776;</button> 
+            </div>
+        </header>
+        <div id="sidebar" class="sidebar">
+            <!-- Sidebar content goes here -->
+            <a href="index.html">Home</a>
+            <a href="contact.html">Contact</a> 
+        </div>
+    </div>
+    <div id="overlay" class="overlay" onclick="closeSidebar()"></div> 
+
+    <div id="subtext" class="subtext">
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        Ready to practice your listening skills? Then click play!
+    </div>
+    <div class="audioPlayer-container">
+        <audio id="audioPlayer" controls autoplay>
+            Your browser does not support the audio element.
+        </audio>
+    </div>
+    
+    <div class="songContainer" id="songContainer"></div>
+    
+    <div class="questionContainer" id="questionContainer">
+        <p><b>Select the correct song:</b></p>
+        <form class="choice-list-container" id="choiceForm">
+            <div class="choice-list" id="choices"></div>
+            <br>
+            <br>
+            <button type="button" onclick="checkAnswer()">Submit Answer</button>
+        </form>
+        <p id="answerFeedback"></p>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        var selectedSong; // Declare selectedSong in the global scope
+        var choice2, choice3, choice4; // Declare other choices globally
+
+        function extractSongName(fileName) {
+            var indexStart = 12; // Index of the start of the song name
+            var indexEnd = fileName.lastIndexOf(".mp3"); // Index of the end of the song name
+            return fileName.substring(indexStart, indexEnd);
+        }
+
+        function shuffleArray(array) {
+            for (var i = array.length - 1; i > 0; i--) {
+                var j = Math.floor(Math.random() * (i + 1));
+                var temp = array[i];
+                array[i] = array[j];
+                array[j] = temp;
+            }
+            return array;
+        }
+
+        window.onload = function() {
+            var songs = [
+                "Test_2__01._Bessie_Smith_Louis_Armstrong_'St._Louis_Blues'.mp3", "Test_2__02._Jelly_Roll_Morton_'Black_Bottom_Stomp'.mp3", "Test_2__03._Louis_Armstrong_'Muskrat_Ramble'.mp3", "Test_2__04._Louis_Armstrong_'Potato_Head_Blues'.mp3", "Test_2__05._Louis_Armstrong__'West_End_Blues'.mp3", "Test_2__06._Beiderbecke_and_Trumbauer_'Singin'_The_Blues'_.mp3", "Test_2__07._Bix_Beiderbecke_'In_A_Mist'.mp3", "Test_2__09._Fats_Waller_'A_Handful_Of_Keys'.mp3", "Test_2__10._Meade_Lux_Lewis_'Honky_Tonk_Train_Blues'.mp3", "Test_2__11._Mary_Lou_Williams_'Night_Life'.mp3", "Test_2__12._Duke_Ellington_'The_Mooche'.mp3", "Test_2__13._Duke_Ellington_'Rexatious'.mp3", "Test_2__14._Duke_'Caravan'.mp3", "Test_2__15._Duke_'Clouds_In_My_Heart'.mp3", "Test_2__16._Fletcher_Henderson_'Sugar_Foot_Stomp'.mp3", "Test_2__17._Fletcher_Henderson_'Down_South_Camp_Meetin'.mp3", "Test_2__18._Walkin'_and_Swingin'.mp3", "Test_2__19._Count_Basie_'Honeysuckle_Rose'.mp3", "Test_2__20._Count_Basie_''One_O'Clock_Jump''.mp3", "Test_2__21._Lester_Young_'Lady_Be_Good'.mp3", "Test_2__22._Billie_Holiday_'When_You're_Smiling'.mp3", "Test_2__23._Roy_Eldridge_'Wabash_Stomp'.mp3", "Test_2__24._Benny_Goodman-Teddy_Wilson_'Afer_You've_Gone'.mp3", "Test_2__25._Benny_Goodman-Teddy_Wilson_'Body_and_Soul'.mp3", "Test_2__26._Coleman_Hawkins_'Body_and_Soul'.mp3", "Test_2__27._Coleman_Hawkins_'I_Can't_Believe_You're_in_Love_with_Me'.mp3", "Test_2__28._Benny_Goodman-Christian_'Seven_Come_Eleven'.mp3", "Test_2__29._Art_Tatum_'Humouresque'.mp3", "Test_2__30._Duke_Ellington_'Cottontail'.mp3", "Test_2__31._Duke_Ellington_'Sepia_Panorama'.mp3", "Test_2__32._Duke_Ellington_'In_a_Mellotone'.mp3", "Test_2__33._Bird-Diz_'Salt_Peanuts'.mp3", "Test_2__34._Bird_'Billie's_Bounce'.mp3", "Test_2__35._Bird_'Ko_Ko'.mp3", "Test_2__36.__Bird_'A_Night_in_Tunisia'.mp3", "Test_2__37._Dizzy_Gillespie_'Ow'.mp3", "Test_2__38._Dizzy_Gillespie_'Manteca'.mp3", "Test_2__39._Bud_Powell_'Indiana'.mp3", "Test_2__40._Erroll_Garner_'The_Way_You_Look_Tonight'.mp3", "Test_2__41._Tadd_Dameron_'Lady_Bird'.mp3", "Test_2__42._Konitz_Tristano_'Subconscious-Lee'.mp3", "Test_2__43._Miles_Nonet_'Moon_Dreams'.mp3", "Test_2__44._Miles_Nonet_'Boplicity'.mp3", "Test_2__45._Bird_with_Strings_'Just_Friends'.mp3", "Test_2__46._Monk_'Ruby_My_Dear'.mp3", "Test_2__47._Monk_'Criss_Cross'.mp3", "Test_2__48._Clifford_Brown_'Joy_Spring'.mp3", "Test_2__49._Clifford_Brown_'Love_is_Many_a_Splendored_Thing'.mp3"
+            ];
+
+            function getRandomItem(array) {
+                if (array.length === 0) {
+                    return null;
+                }
+                return array[Math.floor(Math.random() * array.length)];
+            }
+
+            selectedSong = getRandomItem(songs); // Assign to selectedSong in the global scope
+            choice2 = getRandomItem(songs);
+            choice3 = getRandomItem(songs);
+            choice4 = getRandomItem(songs);
+            
+            if (!selectedSong) {
+                console.error("No songs available.");
+                return;
+            }
+
+            console.log("This is the song: " + selectedSong)
+
+            var songName = extractSongName(selectedSong);
+
+            var audioPlayer = document.getElementById("audioPlayer");
+            if (!audioPlayer) {
+                console.error("Audio player element not found.");
+                return;
+            }
+
+            var encodedFilePath = "Songs/Test_2/" + selectedSong;
+
+            console.log("This is the path: \n" + encodedFilePath);
+            
+            audioPlayer.src = encodedFilePath;
+
+            var choices = [selectedSong, choice2, choice3, choice4];
+            shuffleArray(choices);
+
+            var choicesDiv = document.getElementById("choices");
+            choices.forEach(function(choice, index) {
+                var radioBtn = document.createElement("input");
+                radioBtn.type = "radio";
+                radioBtn.id = "choice" + (index + 1);
+                radioBtn.name = "songChoice";
+                radioBtn.value = choice;
+                
+                var label = document.createElement("label");
+                label.htmlFor = "choice" + (index + 1);
+                label.textContent = "Song " + (index + 1) + ": " + extractSongName(choice);
+                
+                choicesDiv.appendChild(radioBtn);
+                choicesDiv.appendChild(label);
+                choicesDiv.appendChild(document.createElement("br"));
+            });
+        };
+
+        function showSong() {
+            var songContainer = document.getElementById("songContainer");
+            var songName = extractSongName(selectedSong);
+            songContainer.innerHTML = "<p>Song: " + songName + "</p>";
+        }
+
+        function checkAnswer() {
+            var form = document.getElementById("choiceForm");
+            var selectedChoice = form.elements["songChoice"].value;
+            var correctAnswer = selectedSong;
+
+            if (selectedChoice === correctAnswer) {
+                document.getElementById("answerFeedback").innerHTML = "Correct! The right answer is: " + extractSongName(selectedSong);
+            } else {
+                document.getElementById("answerFeedback").innerHTML = "Wrong answer. The right answer is: " + extractSongName(selectedSong);
+            }
+        }
+    </script>
+</body>    
+</html>
