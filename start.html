@@ -67,7 +67,7 @@
         function extractSongName(fileName) {
             var indexStart = 12; // Index of the start of the song name
             var indexEnd = fileName.lastIndexOf(".mp3"); // Index of the end of the song name
-            return fileName.substring(indexStart, indexEnd);
+            return fileName.substring(indexStart, indexEnd).replace(/_/g, ' '); // Replace underscores with spaces
         }
 
         function shuffleArray(array) {
@@ -140,7 +140,7 @@
                 
                 var label = document.createElement("label");
                 label.htmlFor = "choice" + (index + 1);
-                label.textContent = "Song " + (index + 1) + ": " + extractSongName(choice);
+                label.textContent = "Song " + (index + 1) + ": " + extractSongName(choice); // Add ' ' around song title
                 
                 choicesDiv.appendChild(radioBtn);
                 choicesDiv.appendChild(label);
@@ -169,7 +169,7 @@
             if (selectedChoice === correctAnswer) {
                 document.getElementById("answerFeedback").innerHTML = "Correct! The right answer is: " + extractSongName(selectedSong);
             } else {
-                document.getElementById("answerFeedback").innerHTML = "Wrong answer. The right answer is: " + extractSongName(selectedSong);
+                document.getElementById("answerFeedback").innerHTML = "Wrong answer. The right answer is: '" + selectedSong.replace(/_/g, ' ') + "'";
             }
         }
     </script>
