@@ -37,4 +37,3 @@ function pauseAudio() {
     playButton.style.display = "inline-block";
     pauseButton.style.display = "none";
 }
-

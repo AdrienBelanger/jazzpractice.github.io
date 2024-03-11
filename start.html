@@ -63,12 +63,214 @@
     <script>
         var selectedSong; // Declare selectedSong in the global scope
         var choice2, choice3, choice4; // Declare other choices globally
+        var songs = [
+                "Test_2__01._Bessie_Smith_Louis_Armstrong_'St._Louis_Blues'.mp3", "Test_2__02._Jelly_Roll_Morton_'Black_Bottom_Stomp'.mp3", "Test_2__03._Louis_Armstrong_'Muskrat_Ramble'.mp3", "Test_2__04._Louis_Armstrong_'Potato_Head_Blues'.mp3", "Test_2__05._Louis_Armstrong__'West_End_Blues'.mp3", "Test_2__06._Beiderbecke_and_Trumbauer_'Singin'_The_Blues'_.mp3", "Test_2__07._Bix_Beiderbecke_'In_A_Mist'.mp3", "Test_2__09._Fats_Waller_'A_Handful_Of_Keys'.mp3", "Test_2__10._Meade_Lux_Lewis_'Honky_Tonk_Train_Blues'.mp3", "Test_2__11._Mary_Lou_Williams_'Night_Life'.mp3", "Test_2__12._Duke_Ellington_'The_Mooche'.mp3", "Test_2__13._Duke_Ellington_'Rexatious'.mp3", "Test_2__14._Duke_'Caravan'.mp3", "Test_2__15._Duke_'Clouds_In_My_Heart'.mp3", "Test_2__16._Fletcher_Henderson_'Sugar_Foot_Stomp'.mp3", "Test_2__17._Fletcher_Henderson_'Down_South_Camp_Meetin'.mp3", "Test_2__18._Walkin'_and_Swingin'.mp3", "Test_2__19._Count_Basie_'Honeysuckle_Rose'.mp3", "Test_2__20._Count_Basie_''One_O'Clock_Jump''.mp3", "Test_2__21._Lester_Young_'Lady_Be_Good'.mp3", "Test_2__22._Billie_Holiday_'When_You're_Smiling'.mp3", "Test_2__23._Roy_Eldridge_'Wabash_Stomp'.mp3", "Test_2__24._Benny_Goodman-Teddy_Wilson_'Afer_You've_Gone'.mp3", "Test_2__25._Benny_Goodman-Teddy_Wilson_'Body_and_Soul'.mp3", "Test_2__26._Coleman_Hawkins_'Body_and_Soul'.mp3", "Test_2__27._Coleman_Hawkins_'I_Can't_Believe_You're_in_Love_with_Me'.mp3", "Test_2__28._Benny_Goodman-Christian_'Seven_Come_Eleven'.mp3", "Test_2__29._Art_Tatum_'Humouresque'.mp3", "Test_2__30._Duke_Ellington_'Cottontail'.mp3", "Test_2__31._Duke_Ellington_'Sepia_Panorama'.mp3", "Test_2__32._Duke_Ellington_'In_a_Mellotone'.mp3", "Test_2__33._Bird-Diz_'Salt_Peanuts'.mp3", "Test_2__34._Bird_'Billie's_Bounce'.mp3", "Test_2__35._Bird_'Ko_Ko'.mp3", "Test_2__36.__Bird_'A_Night_in_Tunisia'.mp3", "Test_2__37._Dizzy_Gillespie_'Ow'.mp3", "Test_2__38._Dizzy_Gillespie_'Manteca'.mp3", "Test_2__39._Bud_Powell_'Indiana'.mp3", "Test_2__40._Erroll_Garner_'The_Way_You_Look_Tonight'.mp3", "Test_2__41._Tadd_Dameron_'Lady_Bird'.mp3", "Test_2__42._Konitz_Tristano_'Subconscious-Lee'.mp3", "Test_2__43._Miles_Nonet_'Moon_Dreams'.mp3", "Test_2__44._Miles_Nonet_'Boplicity'.mp3", "Test_2__45._Bird_with_Strings_'Just_Friends'.mp3", "Test_2__46._Monk_'Ruby_My_Dear'.mp3", "Test_2__47._Monk_'Criss_Cross'.mp3", "Test_2__48._Clifford_Brown_'Joy_Spring'.mp3", "Test_2__49._Clifford_Brown_'Love_is_Many_a_Splendored_Thing'.mp3"
+            ];
+        var info = [
+                    {
+                        "index": 1,
+                        "info": "\"Bessie Smith, vocal; Louis Armstrong, cornet\""
+                    },
+                    {
+                        "index": 2,
+                        "info": "\"Jelly Roll Morton, piano, arranger\""
+                    },
+                    {
+                        "index": 3,
+                        "info": "\"Louis Armstrong, cornet, vocal;\""
+                    },
+                    {
+                        "index": 4,
+                        "info": "\"Louis Armstrong\""
+                    },
+                    {
+                        "index": 5,
+                        "info": "\"Louis Armstrong, cornet, vocal\""
+                    },
+                    {
+                        "index": 6,
+                        "info": "\"Frankie Trumbauer, C Melody saxophone; Bix Beiderbecke, cornet\""
+                    },
+                    {
+                        "index": 7,
+                        "info": "\"Bix Beiderbecke, piano\""
+                    },
+                    {
+                        "index": 8,
+                        "info": "\"Sidney Bechet, soprano saxophone\""
+                    },
+                    {
+                        "index": 9,
+                        "info": "\"Fats Waller, piano\""
+                    },
+                    {
+                        "index": 10,
+                        "info": "\"Meade ‘Lux’ Lewis, piano\""
+                    },
+                    {
+                        "index": 11,
+                        "info": "\"Mary Lou Williams, piano.\""
+                    },
+                    {
+                        "index": 12,
+                        "info": "\"Duke Ellington, piano, arranger, leader\""
+                    },
+                    {
+                        "index": 13,
+                        "info": "\"Duke Ellington, piano; Rex Stewart, cornet; Johnny Hodges, alto and soprano saxophone\""
+                    },
+                    {
+                        "index": 14,
+                        "info": "\"Duke Ellington, piano; Juan Tizol, valve trombone; Barney Bigard, clarinet\""
+                    },
+                    {
+                        "index": 15,
+                        "info": "\"Duke Ellington, piano; Juan Tizol, valve trombone; Barney Bigard, clarinet\""
+                    },
+                    {
+                        "index": 16,
+                        "info": "\"Fletcher Henderson, piano, bandleader, arranger\""
+                    },
+                    {
+                        "index": 17,
+                        "info": "\"Fletcher Henderson, piano, bandleader, arranger;\""
+                    },
+                    {
+                        "index": 18,
+                        "info": "\"Mary Lou Williams, piano, arranger\""
+                    },
+                    {
+                        "index": 19,
+                        "info": "\"Count Basie and his Orchestra; Count Basie, piano\""
+                    },
+                    {
+                        "index": 21,
+                        "info": "\"Count Basie, piano; Lester Young, tenor sax\""
+                    },
+                    {
+                        "index": 20,
+                        "info": "\"Count Basie and his Orchestra; Count Basie, piano\""
+                    },
+                    {
+                        "index": 22,
+                        "info": "\"Billie Holiday, vocal\""
+                    },
+                    {
+                        "index": 23,
+                        "info": "\"Roy Eldridge, trumpet\""
+                    },
+                    {
+                        "index": 24,
+                        "info": "\"Benny Goodman, clarinet; Teddy Wilson, piano\""
+                    },
+                    {
+                        "index": 25,
+                        "info": "\"Benny Goodman, clarinet; Teddy Wilson, piano\""
+                    },
+                    {
+                        "index": 26,
+                        "info": "\"Coleman Hawkins, tenor saxophone\""
+                    },
+                    {
+                        "index": 27,
+                        "info": "\"Coleman Hawkins, tenor sax; Roy Eldridge, trumpet; Benny Carter, alto sax;\""
+                    },
+                    {
+                        "index": 28,
+                        "info": "\"Benny Goodman, clarinet; Charlie Christian, electric guitar\""
+                    },
+                    {
+                        "index": 29,
+                        "info": "\"Art Tatum, piano\""
+                    },
+                    {
+                        "index": 30,
+                        "info": "\"Duke Ellington, piano, arranger, leader;Cootie Williams, trumpet;Ben Webster, tenor sax; Johnny Hodges, alto sax; Jimmy Blanton, bass;\""
+                    },
+                    {
+                        "index": 31,
+                        "info": "\"Duke Ellington, piano, arranger, leader;Cootie Williams, trumpet;Ben Webster, tenor sax; Johnny Hodges, alto sax; Jimmy Blanton, bass;\""
+                    },
+                    {
+                        "index": 32,
+                        "info": "\"Duke Ellington, piano, arranger, leader;Cootie Williams, trumpet;Ben Webster, tenor sax; Johnny Hodges, alto sax; Jimmy Blanton, bass;\""
+                    },
+                    {
+                        "index": 33,
+                        "info": "\"Dizzy Gillespie, trumpet; Charlie Parker, alto sax; Al Haig, piano; \""
+                    },
+                    {
+                        "index": 34,
+                        "info": "\"Charlie Parker, alto sax; Miles Davis, trumpet\""
+                    },
+                    {
+                        "index": 35,
+                        "info": "\"Charlie Parker, alto sax; Miles Davis, trumpet\""
+                    },
+                    {
+                        "index": 36,
+                        "info": "\"Charlie Parker, alto sax;\""
+                    },
+                    {
+                        "index": 37,
+                        "info": "\"Dizzy Gillespie, trumpet; Cecil Payne, baritone sax;\""
+                    },
+                    {
+                        "index": 38,
+                        "info": "\"Dizzy Gillespie, trumpet; Chano Pozo, conga, vocal\""
+                    },
+                    {
+                        "index": 39,
+                        "info": "\"Bud Powell, piano;\""
+                    },
+                    {
+                        "index": 40,
+                        "info": "\"Errol Garner, piano;\""
+                    },
+                    {
+                        "index": 41,
+                        "info": "\"Tadd Dameron, piano, arranger;\""
+                    },
+                    {
+                        "index": 42,
+                        "info": "\"Lee Konitz, alto sax; Lennie Tristano, piano;\""
+                    },
+                    {
+                        "index": 43,
+                        "info": "\"arranger Gil Evans; Miles Davis, trumpet, leader;\""
+                    },
+                    {
+                        "index": 44,
+                        "info": "\"arranger Gil Evans; Miles Davis, trumpet, leader\""
+                    },
+                    {
+                        "index": 45,
+                        "info": "\"Charlie Parker, alto sax;\""
+                    },
+                    {
+                        "index": 46,
+                        "info": "\"Thelonious Monk, piano\""
+                    },
+                    {
+                        "index": 47,
+                        "info": "\"Thelonious Monk, piano\""
+                    },
+                    {
+                        "index": 48,
+                        "info": "\"Clifford Brown, trumpet; Max Roach, drums\""
+                    },
+                    {
+                        "index": 49,
+                        "info": "\"Clifford Brown, trumpet; Max Roach, drums;\""
+                    }
+                    ]
 
         function extractSongName(fileName) {
-            var indexStart = 12; // Index of the start of the song name
-            var indexEnd = fileName.lastIndexOf(".mp3"); // Index of the end of the song name
+            var indexStart = fileName.indexOf("'") + 1; // Index of the start of the song name (add 1 to exclude the opening single quote)
+            var indexEnd = fileName.indexOf("'", indexStart); // Index of the end of the song name
             return fileName.substring(indexStart, indexEnd).replace(/_/g, ' '); // Replace underscores with spaces
         }
+
 
         function shuffleArray(array) {
             for (var i = array.length - 1; i > 0; i--) {
@@ -81,13 +283,12 @@
         }
 
         window.onload = function() {
-            var songs = [
-                "Test_2__01._Bessie_Smith_Louis_Armstrong_'St._Louis_Blues'.mp3", "Test_2__02._Jelly_Roll_Morton_'Black_Bottom_Stomp'.mp3", "Test_2__03._Louis_Armstrong_'Muskrat_Ramble'.mp3", "Test_2__04._Louis_Armstrong_'Potato_Head_Blues'.mp3", "Test_2__05._Louis_Armstrong__'West_End_Blues'.mp3", "Test_2__06._Beiderbecke_and_Trumbauer_'Singin'_The_Blues'_.mp3", "Test_2__07._Bix_Beiderbecke_'In_A_Mist'.mp3", "Test_2__09._Fats_Waller_'A_Handful_Of_Keys'.mp3", "Test_2__10._Meade_Lux_Lewis_'Honky_Tonk_Train_Blues'.mp3", "Test_2__11._Mary_Lou_Williams_'Night_Life'.mp3", "Test_2__12._Duke_Ellington_'The_Mooche'.mp3", "Test_2__13._Duke_Ellington_'Rexatious'.mp3", "Test_2__14._Duke_'Caravan'.mp3", "Test_2__15._Duke_'Clouds_In_My_Heart'.mp3", "Test_2__16._Fletcher_Henderson_'Sugar_Foot_Stomp'.mp3", "Test_2__17._Fletcher_Henderson_'Down_South_Camp_Meetin'.mp3", "Test_2__18._Walkin'_and_Swingin'.mp3", "Test_2__19._Count_Basie_'Honeysuckle_Rose'.mp3", "Test_2__20._Count_Basie_''One_O'Clock_Jump''.mp3", "Test_2__21._Lester_Young_'Lady_Be_Good'.mp3", "Test_2__22._Billie_Holiday_'When_You're_Smiling'.mp3", "Test_2__23._Roy_Eldridge_'Wabash_Stomp'.mp3", "Test_2__24._Benny_Goodman-Teddy_Wilson_'Afer_You've_Gone'.mp3", "Test_2__25._Benny_Goodman-Teddy_Wilson_'Body_and_Soul'.mp3", "Test_2__26._Coleman_Hawkins_'Body_and_Soul'.mp3", "Test_2__27._Coleman_Hawkins_'I_Can't_Believe_You're_in_Love_with_Me'.mp3", "Test_2__28._Benny_Goodman-Christian_'Seven_Come_Eleven'.mp3", "Test_2__29._Art_Tatum_'Humouresque'.mp3", "Test_2__30._Duke_Ellington_'Cottontail'.mp3", "Test_2__31._Duke_Ellington_'Sepia_Panorama'.mp3", "Test_2__32._Duke_Ellington_'In_a_Mellotone'.mp3", "Test_2__33._Bird-Diz_'Salt_Peanuts'.mp3", "Test_2__34._Bird_'Billie's_Bounce'.mp3", "Test_2__35._Bird_'Ko_Ko'.mp3", "Test_2__36.__Bird_'A_Night_in_Tunisia'.mp3", "Test_2__37._Dizzy_Gillespie_'Ow'.mp3", "Test_2__38._Dizzy_Gillespie_'Manteca'.mp3", "Test_2__39._Bud_Powell_'Indiana'.mp3", "Test_2__40._Erroll_Garner_'The_Way_You_Look_Tonight'.mp3", "Test_2__41._Tadd_Dameron_'Lady_Bird'.mp3", "Test_2__42._Konitz_Tristano_'Subconscious-Lee'.mp3", "Test_2__43._Miles_Nonet_'Moon_Dreams'.mp3", "Test_2__44._Miles_Nonet_'Boplicity'.mp3", "Test_2__45._Bird_with_Strings_'Just_Friends'.mp3", "Test_2__46._Monk_'Ruby_My_Dear'.mp3", "Test_2__47._Monk_'Criss_Cross'.mp3", "Test_2__48._Clifford_Brown_'Joy_Spring'.mp3", "Test_2__49._Clifford_Brown_'Love_is_Many_a_Splendored_Thing'.mp3"
-            ];
-
+            
             function getRandomItem(array) {
                 if (array.length === 0) {
                     return null;
+
+    
                 }
                 return array[Math.floor(Math.random() * array.length)];
             }
@@ -146,13 +347,6 @@
                 choicesDiv.appendChild(label);
                 choicesDiv.appendChild(document.createElement("br"));
             });
-
-            // Start the audio at a random moment and stop after 30 seconds
-            var randomStart = Math.random() * audioPlayer.duration;
-            audioPlayer.currentTime = randomStart;
-            setTimeout(function() {
-                audioPlayer.pause();
-            }, 30000); // 30 seconds
         };
 
         function showSong() {
@@ -165,12 +359,21 @@
             var form = document.getElementById("choiceForm");
             var selectedChoice = form.elements["songChoice"].value;
             var correctAnswer = selectedSong;
+            var correctIndex = songs.indexOf(correctAnswer) + 1; // Index starts from 1
 
             if (selectedChoice === correctAnswer) {
-                document.getElementById("answerFeedback").innerHTML = "Correct! The right answer is: " + extractSongName(selectedSong);
+                document.getElementById("answerFeedback").innerHTML = "Correct! The right answer is: " + extractSongName(selectedSong) + " with " + getInfo(correctIndex).replace(/"/g, '');
             } else {
-                document.getElementById("answerFeedback").innerHTML = "Wrong answer. The right answer is: '" + selectedSong.replace(/_/g, ' ') + "'";
+                document.getElementById("answerFeedback").innerHTML = "Wrong answer. The right answer is: " + extractSongName(selectedSong) + " with " + getInfo(correctIndex).replace(/"/g, '');
             }
+        }
+
+        function getInfo(index) {
+            var matchedInfo = info.find(function(item) {
+                return item.index === index;
+            });
+
+            return matchedInfo ? matchedInfo.info : "No info available";
         }
     </script>
 </body>    
